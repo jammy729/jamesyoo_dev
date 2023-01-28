@@ -1,0 +1,12 @@
+section#introduction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  width: 100%;
+  .intro_about {
+    padding: 2rem 0;
+    max-width: 900px;
+  }
+}
