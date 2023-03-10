@@ -1,19 +1,3 @@
-// import { useRouter } from "next/router";
-// import { useState, useEffect } from "react";
-
-// export default function ID() {
-//   const router = useRouter();
-//   const id = router.query.id;
-//   const comment = router.query.comment;
-
-//   return (
-//     <>
-//       <h1>Post: {id}</h1>
-//       <h1>Comment: {comment}</h1>
-//     </>
-//   );
-// }
-
 import React from "react";
 
 export const getStaticProps = async (ctx) => {
@@ -24,7 +8,9 @@ export const getStaticProps = async (ctx) => {
   const userId = params.id;
 
   // Fetching user data
-  const res = await fetch(`http://localhost:3000/api/${userId}`);
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/users/${userId}`
+  );
   const userData = await res.json();
 
   // Sending data to the page via props
@@ -40,9 +26,16 @@ export const getStaticPaths = () => {
   // pre-rendered by next js
   return {
     paths: [
-      { params: { id: "brixwork" } },
+      { params: { id: "1" } },
       { params: { id: "2" } },
       { params: { id: "3" } },
+      { params: { id: "4" } },
+      { params: { id: "5" } },
+      { params: { id: "6" } },
+      { params: { id: "7" } },
+      { params: { id: "8" } },
+      { params: { id: "9" } },
+      { params: { id: "10" } },
     ],
     fallback: false,
   };
