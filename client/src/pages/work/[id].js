@@ -11,7 +11,7 @@
 //       <h1>Post: {id}</h1>
 //       <h1>Comment: {comment}</h1>
 //     </>
-//   );
+//   );\
 // }
 
 import React from "react";
