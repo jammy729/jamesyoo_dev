@@ -1,4 +1,9 @@
 import { useRouter } from "next/router";
+import fs from "fs";
+import path from "path";
+
+export async function getStaticPaths() {}
+
 const User = () => {
   const router = useRouter();
   const { id } = router.query;
