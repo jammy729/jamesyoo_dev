@@ -1,10 +1,26 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { useState } from "react";
-const brixwork = () => {
+import { db } from "../../../firebase/initFirebase";
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
+
+const adminWorks = () => {
+  const router = useRouter();
+  let { id } = router.query;
   const [content, setContent] = useState({
     title: "",
     heading_one: "",
   });
+  const onSubmit = async () => {
+    const collectionRef = collection(db, `${id}`);
+    const docRef = await addDoc(collectionRef, {
+      ...content,
+      timestamp: serverTimestamp(),
+    });
+    setContent({ title: "", detail: "" });
+    alert(`todo with id ${docRef.id} is added successfully`);
+  };
+
   return (
     <React.Fragment>
       <pre>{JSON.stringify(content)}</pre>
@@ -26,8 +42,9 @@ const brixwork = () => {
         cols="30"
         rows="10"
       ></textarea>
+      <input type="text" onClick={onSubmit} />
     </React.Fragment>
   );
 };
 
-export default brixwork;
+export default adminWorks;

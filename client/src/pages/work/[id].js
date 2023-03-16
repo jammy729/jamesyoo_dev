@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Layout from "@/components/layout";
 import { collection, onSnapshot, orderBy, query } from "@firebase/firestore";
 import { db } from "../../../firebase/initFirebase";
@@ -6,9 +7,11 @@ import { useEffect, useState } from "react";
 
 const workPages = () => {
   const [todos, setTodos] = useState([]);
-
+  const router = useRouter();
+  let { id } = router.query;
+  // id = id.substring(1);
   useEffect(() => {
-    const collectionRef = collection(db, "content");
+    const collectionRef = collection(db, `${id}`);
     // const q = query(collectionRef, orderBy("timestamp", "desc"));
 
     const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => {
@@ -22,15 +25,19 @@ const workPages = () => {
       return unsubscribe;
     });
   }, []);
+
   return (
     <React.Fragment>
       <Layout>
-        <h1>
+        <div>
           {todos.map((content) => (
-            <div key={content.id}>{content.title}</div>
+            <div key={content.id}>
+              <h1>{content.title}</h1>
+              <h2>{content?.heading}</h2>
+            </div>
           ))}
-        </h1>
-        hello
+        </div>
+        {id}
       </Layout>
     </React.Fragment>
   );
