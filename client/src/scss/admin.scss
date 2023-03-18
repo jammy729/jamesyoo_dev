@@ -1,0 +1,9 @@
+pre {
+  text-overflow: clip;
+}
+
+section.input_area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

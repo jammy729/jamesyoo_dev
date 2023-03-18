@@ -6,34 +6,43 @@ import { db } from "../../../firebase/initFirebase";
 import { useEffect, useState } from "react";
 
 const workPages = () => {
-  const [todos, setTodos] = useState([]);
+  const [contents, setContents] = useState([]);
+
   const router = useRouter();
   let { id } = router.query;
-  // id = id.substring(1);
-  useEffect(() => {
-    const collectionRef = collection(db, `${id}`);
-    // const q = query(collectionRef, orderBy("timestamp", "desc"));
 
-    const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => {
-      setTodos(
-        querySnapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-          timestamp: doc.data().timestamp?.toDate().getTime(),
-        }))
-      );
-      return unsubscribe;
-    });
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const collectionRef = collection(db, `${id}`);
+        const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => {
+          setContents(
+            querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
+          );
+          return unsubscribe;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [contents]);
 
   return (
     <React.Fragment>
       <Layout>
         <div>
-          {todos.map((content) => (
+          {contents?.map((content) => (
             <div key={content.id}>
-              <h1>{content.title}</h1>
-              <h2>{content?.heading}</h2>
+              {content.title}
+              {content.type}
+              {content.type}
+              {content.skills}
+              {content.overview}
+              {content.content_one}
             </div>
           ))}
         </div>

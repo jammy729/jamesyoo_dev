@@ -5,9 +5,21 @@ const index = () => {
   return (
     <Layout>
       <div className="container-layout">
-        <Link href="/admin/brixwork">brixwork</Link>
-        <Link href="/admin/world-institution">world institution database</Link>
-        <Link href="/admin/visual-analytics">educational visual analytics</Link>
+        <ul>
+          <li>
+            <Link href="/admin/brixwork">brixwork</Link>
+          </li>
+          <li>
+            <Link href="/admin/world-institution">
+              world institution database
+            </Link>
+          </li>
+          <li>
+            <Link href="/admin/visual-analytics">
+              educational visual analytics
+            </Link>
+          </li>
+        </ul>
       </div>
     </Layout>
   );

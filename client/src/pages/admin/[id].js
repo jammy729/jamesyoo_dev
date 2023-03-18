@@ -1,48 +1,145 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { db } from "../../../firebase/initFirebase";
-import { addDoc, collection, serverTimestamp } from "@firebase/firestore";
-
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  onSnapshot,
+} from "@firebase/firestore";
+import Layout from "@/components/layout";
 const adminWorks = () => {
+  //router
   const router = useRouter();
   let { id } = router.query;
-  const [content, setContent] = useState({
+
+  //reading
+  const [readContents, setReadContents] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const collectionRef = collection(db, `${id}`);
+        const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => {
+          setReadContents(
+            querySnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }))
+          );
+          return unsubscribe;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [readContents]);
+
+  //writing
+  const [writeContents, setWriteContents] = useState({
     title: "",
-    heading_one: "",
+    type: "",
+    skills: "",
+    overview: "",
+    content_one: "",
+    content_two: "",
   });
+
   const onSubmit = async () => {
     const collectionRef = collection(db, `${id}`);
     const docRef = await addDoc(collectionRef, {
-      ...content,
+      ...writeContents,
       timestamp: serverTimestamp(),
     });
-    setContent({ title: "", detail: "" });
+    setWriteContents({
+      title: "",
+      type: "",
+      skills: "",
+      overview: "",
+      content_one: "",
+      content_two: "",
+    });
     alert(`todo with id ${docRef.id} is added successfully`);
   };
 
   return (
     <React.Fragment>
-      <pre>{JSON.stringify(content)}</pre>
-      <textarea
-        name="title"
-        label="title"
-        value={content.title}
-        onChange={(e) => setContent({ ...content, title: e.target.value })}
-        cols="30"
-        rows="10"
-      ></textarea>
-      <textarea
-        name="heading_one"
-        label="heading_one"
-        value={content.heading_one}
-        onChange={(e) =>
-          setContent({ ...content, heading_one: e.target.value })
-        }
-        cols="30"
-        rows="10"
-      ></textarea>
-      <input type="text" onClick={onSubmit} />
+      <Layout>
+        <div className="container-layout">
+          <pre>{JSON.stringify(writeContents)}</pre>
+          <section className="input_area">
+            <textarea
+              name="title"
+              label="title"
+              value={writeContents.title}
+              onChange={(e) =>
+                setWriteContents({ ...writeContents, title: e.target.value })
+              }
+              cols="40"
+              rows="20"
+            ></textarea>
+            <textarea
+              name="type"
+              label="type"
+              value={writeContents.type}
+              onChange={(e) =>
+                setWriteContents({ ...writeContents, type: e.target.value })
+              }
+              cols="30"
+              rows="10"
+            ></textarea>
+            <textarea
+              name="skills"
+              label="skills"
+              value={writeContents.skills}
+              onChange={(e) =>
+                setWriteContents({ ...writeContents, skills: e.target.value })
+              }
+              cols="30"
+              rows="10"
+            ></textarea>
+            <textarea
+              name="overview"
+              label="overview"
+              value={writeContents.overview}
+              onChange={(e) =>
+                setWriteContents({ ...writeContents, overview: e.target.value })
+              }
+              cols="30"
+              rows="10"
+            ></textarea>
+            <textarea
+              name="content_two"
+              label="content_two"
+              value={writeContents.content_two}
+              onChange={(e) =>
+                setWriteContents({
+                  ...writeContents,
+                  content_two: e.target.value,
+                })
+              }
+              cols="30"
+              rows="10"
+            ></textarea>
+          </section>
+
+          <input type="submit" onClick={onSubmit} />
+          <section>
+            {readContents?.map((content) => (
+              <div key={content.id}>
+                {content.title}
+                {content.type}
+                {content.type}
+                {content.skills}
+                {content.overview}
+                {content.content_one}
+              </div>
+            ))}
+          </section>
+        </div>
+      </Layout>
     </React.Fragment>
   );
 };
