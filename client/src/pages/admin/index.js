@@ -10,7 +10,7 @@ const index = () => {
             <Link href="/admin/brixwork">brixwork</Link>
           </li>
           <li>
-            <Link href="/admin/world-institution">
+            <Link href="/admin/institution-database">
               world institution database
             </Link>
           </li>

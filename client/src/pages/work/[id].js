@@ -15,7 +15,8 @@ const workPages = () => {
     async function fetchData() {
       try {
         const collectionRef = collection(db, `${id}`);
-        const unsubscribe = onSnapshot(collectionRef, (querySnapshot) => {
+        const q = query(collectionRef, orderBy("timestamp", "desc"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
           setContents(
             querySnapshot.docs.map((doc) => ({
               ...doc.data(),

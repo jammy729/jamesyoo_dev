@@ -7,3 +7,14 @@ section.input_area {
   flex-direction: column;
   gap: 20px;
 }
+
+.eachContent {
+  background-color: gray;
+  padding: 20px;
+  margin: 5px 0;
+  border-radius: 10px;
+
+  > div {
+    display: flex;
+  }
+}
