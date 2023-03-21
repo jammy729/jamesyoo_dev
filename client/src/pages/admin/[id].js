@@ -23,7 +23,7 @@ const adminWorks = () => {
     async function fetchData() {
       try {
         const collectionRef = collection(db, `${id}`);
-        const q = query(collectionRef, orderBy("timestamp", "desc"));
+        const q = query(collectionRef, orderBy("timestamp", "asc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           setReadContents(
             querySnapshot.docs.map((doc) => ({
