@@ -2,6 +2,7 @@
 *::before,
 *::after {
   box-sizing: border-box; // 1
+  white-space: pre-wrap;
 }
 
 main {
@@ -181,4 +182,8 @@ div.btn {
   border-radius: 8px;
   color: #373737;
   margin-right: 5px;
+}
+
+img {
+  width: 100%;
 }

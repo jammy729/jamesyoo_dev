@@ -22,7 +22,7 @@ const adminWorks = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const collectionRef = collection(db, `${id}`);
+        const collectionRef = collection(db, "institution-database");
         const q = query(collectionRef, orderBy("timestamp", "asc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           setReadContents(
@@ -40,53 +40,39 @@ const adminWorks = () => {
     fetchData();
   }, [readContents]);
 
-  //ref
-  // const inputRef = useRef();
-  // useEffect(() => {
-  //   const checkIfClickedOutside = (e) => {
-  //     if (!inputRef.current.contains(e.target)) {
-  //       console.log("outside input");
-  //       setWriteContents({
-  //         title: "",
-  //         type: "",
-  //         skills: "",
-  //         overview: "",
-  //         content_one: "",
-  //         content_two: "",
-  //       });
-  //     } else {
-  //       console.log("inside input area");
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", checkIfClickedOutside);
-  //   return () => {
-  //     document.removeEventListener("mousdown", checkIfClickedOutside);
-  //   };
-  // }, []);
-
   //writing
   const [writeContents, setWriteContents] = useState({
+    cover_image: "",
     title: "",
     type: "",
     skills: "",
     overview: "",
     content_one: "",
+    content_one_image: "",
+    content_one_image_desc: "",
     content_two: "",
+    content_two_image: "",
+    content_two_image_desc: "",
   });
 
   const onSubmit = async () => {
-    const collectionRef = collection(db, `${id}`);
+    const collectionRef = collection(db, "institution-database");
     const docRef = await addDoc(collectionRef, {
       ...writeContents,
       timestamp: serverTimestamp(),
     });
     setWriteContents({
+      cover_image: "",
       title: "",
       type: "",
       skills: "",
       overview: "",
       content_one: "",
+      content_one_image: "",
+      content_one_image_desc: "",
       content_two: "",
+      content_two_image: "",
+      content_two_image_desc: "",
     });
     alert(`todo with id ${docRef.id} is added successfully`);
   };
@@ -100,6 +86,20 @@ const adminWorks = () => {
             <label htmlFor="" name="title">
               Title
             </label>
+            <textarea
+              name="cover_image"
+              label="cover_image"
+              placeholder="cover_image"
+              value={writeContents.cover_image}
+              onChange={(e) =>
+                setWriteContents({
+                  ...writeContents,
+                  cover_image: e.target.value,
+                })
+              }
+              cols="40"
+              rows="20"
+            ></textarea>
             <textarea
               name="title"
               label="title"
