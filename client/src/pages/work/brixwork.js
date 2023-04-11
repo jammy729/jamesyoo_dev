@@ -49,6 +49,7 @@ const workPages = () => {
                 <Link href={content.source}>Leslie McConnell Website</Link>
               </p>
             </div>
+
             <div className="work_content">
               <h3>Overview</h3>
               <p>{content.overview}</p>
