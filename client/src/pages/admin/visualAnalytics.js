@@ -22,7 +22,7 @@ const adminWorks = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const collectionRef = collection(db, "institution-database");
+        const collectionRef = collection(db, "visualAnalytics");
         const q = query(collectionRef, orderBy("timestamp", "asc"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
           setReadContents(
@@ -56,7 +56,7 @@ const adminWorks = () => {
   });
 
   const onSubmit = async () => {
-    const collectionRef = collection(db, "institution-database");
+    const collectionRef = collection(db, "visualAnalytics");
     const docRef = await addDoc(collectionRef, {
       ...writeContents,
       timestamp: serverTimestamp(),

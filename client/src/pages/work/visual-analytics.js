@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const visual-analytics = () => {
-  return (
-    <div>visual-analytics</div>
-  )
-}
+const visualAnalytics = () => {
+  return <div>visual-analytics</div>;
+};
 
-export default visual-analytics
+export default visualAnalytics;
