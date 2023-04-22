@@ -1,0 +1,30 @@
+.two_column_layout {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 0 1.666rem;
+
+  .left_column {
+    flex-basis: 50%;
+    margin-right: 0;
+    img {
+      padding: 20px;
+    }
+  }
+
+  .right_column {
+    flex-basis: 50%;
+  }
+
+  @media only screen and (min-width: $screen-lg-min) {
+    flex-direction: row;
+
+    .left_column {
+      margin: 2rem;
+      img {
+        padding: 0;
+      }
+    }
+  }
+}

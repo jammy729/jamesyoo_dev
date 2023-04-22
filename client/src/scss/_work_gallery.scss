@@ -6,9 +6,6 @@ section#work_gallery {
   margin: 10px auto;
   gap: 10px;
   padding: 0;
-  * {
-    color: white;
-  }
   .work_container {
     flex: 0 0 95%;
     position: relative;
@@ -23,6 +20,7 @@ section#work_gallery {
       padding: 1.3rem;
 
       .work_title {
+        color: white;
         &#h2_style {
           margin-bottom: 0;
           font-size: 1.8rem;

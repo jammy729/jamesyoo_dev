@@ -19,7 +19,7 @@ const header = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header>
-        <div id="navbar" className="container-fluid">
+        <div id="navbar" style={{ maxWidth: "100%", padding: "20px" }}>
           <div className="navbar_logo">
             <Link href="/">
               <span id="h1_style">James Yoo</span>
@@ -34,13 +34,13 @@ const header = () => {
           </div>
           <div className="mobile_menu" onClick={() => setShow(!show)}>
             <div
-              className={"hamburger_menu " + (show ? "white" : "black")}
+              className={"hamburger_menu " + (show ? "white" : "white")}
             ></div>
             <div
-              className={"hamburger_menu " + (show ? "white" : "black")}
+              className={"hamburger_menu " + (show ? "white" : "white")}
             ></div>
             <div
-              className={"hamburger_menu " + (show ? "white" : "black")}
+              className={"hamburger_menu " + (show ? "white" : "white")}
             ></div>
           </div>
           {show && (
